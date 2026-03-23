@@ -2,26 +2,15 @@
 <html>
 <head>
   <title>PDF to Image</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+
   <style>
     body {
       text-align: center;
-      font-family: Arial;
       background: #0f2027;
       color: white;
+      font-family: Arial;
     }
-
-    input {
-      margin: 10px;
-    }
-
-    button {
-      padding: 10px 20px;
-      background: #00ffd5;
-      border: none;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
     canvas {
       margin-top: 20px;
       border: 2px solid white;
@@ -33,10 +22,38 @@
 
 <h1>PDF to Image 📄➡️📸</h1>
 
-<input type="file" id="upload"><br>
-<button onclick="alert('Advanced feature, coming soon 😄')">Convert</button>
+<input type="file" id="pdfFile"><br>
 
-<p>👉 Full PDF tools coming soon...</p>
+<canvas id="canvas"></canvas>
+
+<script>
+document.getElementById('pdfFile').addEventListener('change', function(e) {
+  let file = e.target.files[0];
+  let fileReader = new FileReader();
+
+  fileReader.onload = function() {
+    let typedarray = new Uint8Array(this.result);
+
+    pdfjsLib.getDocument(typedarray).promise.then(function(pdf) {
+      pdf.getPage(1).then(function(page) {
+        let viewport = page.getViewport({scale: 1.5});
+        let canvas = document.getElementById('canvas');
+        let context = canvas.getContext('2d');
+
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
+
+        page.render({
+          canvasContext: context,
+          viewport: viewport
+        });
+      });
+    });
+  };
+
+  fileReader.readAsArrayBuffer(file);
+});
+</script>
 
 </body>
-  </html>
+</html>
