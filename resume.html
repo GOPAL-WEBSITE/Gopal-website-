@@ -22,6 +22,7 @@
       border: none;
       cursor: pointer;
       font-weight: bold;
+      margin: 5px;
     }
 
     #resume {
@@ -45,6 +46,7 @@
 <textarea id="education" placeholder="Enter your education"></textarea><br>
 
 <button onclick="createResume()">Create Resume</button>
+<button onclick="downloadResume()">Download Resume</button>
 
 <div id="resume"></div>
 
@@ -59,7 +61,18 @@ function createResume() {
     "<p><b>Skills:</b> " + skills + "</p>" +
     "<p><b>Education:</b> " + education + "</p>";
 }
+
+function downloadResume() {
+  let content = document.getElementById("resume").innerText;
+
+  let blob = new Blob([content], { type: "text/plain" });
+  let a = document.createElement("a");
+
+  a.href = URL.createObjectURL(blob);
+  a.download = "resume.txt";
+  a.click();
+}
 </script>
 
 </body>
-                                                                         </html>
+</html>
