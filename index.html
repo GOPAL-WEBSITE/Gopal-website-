@@ -14,62 +14,61 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: white; /* 👈 white background */
+      background: white;
       color: black;
       text-align: center;
     }
 
     header {
-      padding: 60px 20px;
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      color: white;
+      padding: 40px 20px;
+      background: white;
     }
 
     header img {
-      width: 130px;
-      height: 130px;
+      width: 120px;
+      height: 120px;
       border-radius: 50%;
-      border: 4px solid white;
+      border: 3px solid #ddd;
       object-fit: cover;
     }
 
+    h1 {
+      margin-top: 10px;
+    }
+
     section {
-      padding: 40px 20px;
+      padding: 30px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      max-width: 600px;
+      margin: auto;
     }
 
     .card {
       background: #f5f5f5;
-      margin: 15px auto;
       padding: 20px;
       border-radius: 15px;
-      max-width: 500px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
-
-    .btn {
-      display: block;
-      margin: 10px auto;
-      padding: 12px;
-      background: #00ffd5;
-      color: black;
-      border-radius: 25px;
       text-decoration: none;
+      color: black;
       font-weight: bold;
-      width: 80%;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.1);
       transition: 0.3s;
     }
 
-    .btn:hover {
-      background: #00c9a7;
-      color: white;
+    .card:hover {
       transform: scale(1.05);
+      background: #00ffd5;
     }
 
     footer {
-      padding: 20px;
+      margin-top: 30px;
+      padding: 15px;
       background: #000;
       color: white;
-      margin-top: 20px;
     }
   </style>
 </head>
@@ -79,38 +78,34 @@
 <header>
   <img src="profile.jpg" alt="Profile">
   <h1>Gopal Tools Hub 🚀</h1>
-  <p>All-in-One Free Online Tools 🔥</p>
+  <p>All-in-One Free Tools 🔥</p>
 </header>
 
 <section>
 
-  <div class="card">
-    <h2>🛠️ Tools</h2>
+  <h2>🛠️ Tools</h2>
 
-    <a href="qr.html" class="btn">QR Code Generator</a>
-    <a href="resume.html" class="btn">Resume Builder</a>
-    <a href="converter.html" class="btn">JPG to PNG Converter</a>
-    <a href="search.html" class="btn">Search Tool</a>
-    <a href="invoice.html" class="btn">Invoice Generator</a>
-    <a href="logo.html" class="btn">Logo Maker</a>
-    <a href="pdf.html" class="btn">PDF Generator</a>
-    <a href="share.html" class="btn">Share Tool</a>
+  <div class="grid">
 
-  </div>
+    <a href="qr.html" class="card">QR Generator</a>
+    <a href="resume.html" class="card">Resume Builder</a>
 
-  <div class="card">
-    <h2>📞 Connect With Me</h2>
+    <a href="converter.html" class="card">Image Converter</a>
+    <a href="search.html" class="card">Search Tool</a>
 
-    <a href="https://instagram.com/shubdeep.x05" target="_blank" class="btn">Instagram</a>
-    <a href="https://wa.me/919877937997" target="_blank" class="btn">WhatsApp</a>
+    <a href="invoice.html" class="card">Invoice Generator</a>
+    <a href="logo.html" class="card">Logo Maker</a>
+
+    <a href="pdf.html" class="card">PDF Tool</a>
+    <a href="share.html" class="card">Share Tool</a>
 
   </div>
 
 </section>
 
 <footer>
-  <p>© 2026 Gopal | All Rights Reserved</p>
+  <p>© 2026 Gopal</p>
 </footer>
 
 </body>
-      </html>
+</html>
