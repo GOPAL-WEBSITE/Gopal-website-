@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin 🔐</title>
+<style>
+body{background:black;color:#00ff99;text-align:center;font-family:Arial;}
+.card{background:#111;margin:20px;padding:20px;border-radius:15px;}
+button{padding:10px;margin:10px;border:none;border-radius:10px;}
+.ok{background:#00ff99;}
+.no{background:red;color:white;}
+</style>
+</head>
+
+<body>
+
+<h1>Admin Panel</h1>
+
+<div class="card">
+<p id="data">No Request</p>
+
+<button class="ok" onclick="approve()">Approve</button>
+<button class="no" onclick="reject()">Reject</button>
+
+<p id="status"></p>
+</div>
+
+<script>
+let r = localStorage.getItem("request");
+
+if(r){
+let d = JSON.parse(r);
+data.innerText = `Name: ${d.name} | UPI: ${d.upi} | ₹${d.amount}`;
+}
+
+function approve(){
+status.innerText="✅ Pay user now";
+localStorage.setItem("coins",0);
+}
+
+function reject(){
+status.innerText="❌ Rejected";
+}
+</script>
+
+</body>
+</html>
