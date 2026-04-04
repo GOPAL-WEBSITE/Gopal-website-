@@ -95,12 +95,24 @@ function shareTask(){
 
 // SPIN WHEEL
 function spin(){
+  let today = new Date().toDateString();
+
+  // check if already used today
+  if(localStorage.getItem("lastSpin") === today){
+    alert("❌ Spin already used today");
+    return;
+  }
+
   let rewards = [10,20,30,50,100];
   let win = rewards[Math.floor(Math.random()*rewards.length)];
 
   setTimeout(()=>{
     addCoins(win);
     alert("🎰 You won "+win+" coins!");
+
+    // save today spin
+    localStorage.setItem("lastSpin", today);
+
   },1000);
 }
 
