@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Earn Money 💰</title>
+
+<style>
+body {background:#111;color:white;text-align:center;font-family:Arial;}
+.card {background:#1e1e1e;margin:15px;padding:20px;border-radius:15px;}
+button {padding:10px;margin:5px;border:none;border-radius:10px;background:#00ff99;font-weight:bold;}
+#coins {font-size:30px;color:#00ff99;}
+</style>
+</head>
+
+<body>
+
+<h1>💰 Earn Dashboard</h1>
+
+<div class="card">
+  <h2>Your Coins</h2>
+  <p id="coins">0</p>
+  <p>50 Coins = ₹1</p>
+</div>
+
+<div class="card">
+  <h2>Tasks</h2>
+  <button onclick="task('login',10)">Daily Login (+10)</button>
+  <button onclick="task('tool',20)">Use Tool (+20)</button>
+  <button onclick="task('share',30)">Share (+30)</button>
+  <button onclick="task('stay',15)">Stay 1 Min (+15)</button>
+  <button onclick="task('visit',20)">Visit Pages (+20)</button>
+</div>
+
+<div class="card">
+  <h2>🎰 Spin</h2>
+  <button onclick="spin()">Spin & Win</button>
+  <p id="spin"></p>
+</div>
+
+<div class="card">
+  <h2>👥 Referral</h2>
+  <button onclick="task('ref',200)">Invite Friend (+200)</button>
+</div>
+
+<div class="card">
+  <h2>💸 Withdraw</h2>
+  <a href="withdraw.html"><button>Go to Withdraw</button></a>
+</div>
+
+<script>
+let coins = parseInt(localStorage.getItem("coins")) || 0;
+document.getElementById("coins").innerText = coins;
+
+let done = JSON.parse(localStorage.getItem("tasks")) || {};
+
+function task(name, amount){
+  if(done[name]){
+    alert("Already claimed today 😏");
+    return;
+  }
+  coins += amount;
+  done[name]=true;
+  localStorage.setItem("coins", coins);
+  localStorage.setItem("tasks", JSON.stringify(done));
+  document.getElementById("coins").innerText = coins;
+}
+
+function spin(){
+  let reward = Math.floor(Math.random()*90)+10;
+  coins += reward;
+  localStorage.setItem("coins", coins);
+  document.getElementById("coins").innerText = coins;
+  document.getElementById("spin").innerText = "Won "+reward+" coins!";
+}
+</script>
+
+</body>
+  </html>
