@@ -25,22 +25,19 @@ button {padding:10px;margin:5px;border:none;border-radius:10px;background:#00ff9
 
 <div class="card">
   <h2>Tasks</h2>
-  <button onclick="task('login',10)">Daily Login (+10)</button>
-  <button onclick="task('tool',20)">Use Tool (+20)</button>
-  <button onclick="task('share',30)">Share (+30)</button>
-  <button onclick="task('stay',15)">Stay 1 Min (+15)</button>
-  <button onclick="task('visit',20)">Visit Pages (+20)</button>
-</div>
 
-<div class="card">
-  <h2>🎰 Spin</h2>
-  <button onclick="spin()">Spin & Win</button>
-  <p id="spin"></p>
+  <button onclick="useTool()">Use Tool (+20)</button>
+  <button onclick="shareTask()">Share (+30)</button>
+  <button onclick="spin()">Spin & Win 🎰</button>
+
+  <p id="msg"></p>
 </div>
 
 <div class="card">
   <h2>👥 Referral</h2>
-  <button onclick="task('ref',200)">Invite Friend (+200)</button>
+  <input id="refInput" placeholder="Enter Referral Code">
+  <button onclick="applyRef()">Apply</button>
+  <p id="refMsg"></p>
 </div>
 
 <div class="card">
@@ -49,31 +46,78 @@ button {padding:10px;margin:5px;border:none;border-radius:10px;background:#00ff9
 </div>
 
 <script>
+
+// Coins load
 let coins = parseInt(localStorage.getItem("coins")) || 0;
 document.getElementById("coins").innerText = coins;
 
-let done = JSON.parse(localStorage.getItem("tasks")) || {};
+// DAILY LOGIN AUTO (REAL)
+let today = new Date().toDateString();
 
-function task(name, amount){
-  if(done[name]){
-    alert("Already claimed today 😏");
-    return;
+if(localStorage.getItem("lastLogin") !== today){
+  coins += 10;
+  localStorage.setItem("coins", coins);
+  localStorage.setItem("lastLogin", today);
+  alert("🎉 Daily Login Reward +10 Coins");
+}
+
+// ADD COINS FUNCTION
+function addCoins(c){
+  coins += c;
+  localStorage.setItem("coins", coins);
+  document.getElementById("coins").innerText = coins;
+}
+
+// USE TOOL (REAL REDIRECT)
+function useTool(){
+  window.open("logo.html", "_blank");
+
+  setTimeout(()=>{
+    addCoins(20);
+    document.getElementById("msg").innerText="✅ Tool Used +20 Coins";
+  },5000);
+}
+
+// SHARE TASK (REAL SHARE)
+function shareTask(){
+  if(navigator.share){
+    navigator.share({
+      title:"Earn Money 💰",
+      text:"Join and earn real money 😎",
+      url:window.location.href
+    }).then(()=>{
+      addCoins(30);
+    });
+  } else {
+    alert("Sharing not supported");
   }
-  coins += amount;
-  done[name]=true;
-  localStorage.setItem("coins", coins);
-  localStorage.setItem("tasks", JSON.stringify(done));
-  document.getElementById("coins").innerText = coins;
 }
 
+// SPIN WHEEL
 function spin(){
-  let reward = Math.floor(Math.random()*90)+10;
-  coins += reward;
-  localStorage.setItem("coins", coins);
-  document.getElementById("coins").innerText = coins;
-  document.getElementById("spin").innerText = "Won "+reward+" coins!";
+  let rewards = [10,20,30,50,100];
+  let win = rewards[Math.floor(Math.random()*rewards.length)];
+
+  setTimeout(()=>{
+    addCoins(win);
+    alert("🎰 You won "+win+" coins!");
+  },1000);
 }
+
+// REFERRAL SYSTEM (BASIC REAL)
+function applyRef(){
+  let code = document.getElementById("refInput").value;
+
+  if(code && !localStorage.getItem("refUsed")){
+    addCoins(200);
+    localStorage.setItem("refUsed", true);
+    document.getElementById("refMsg").innerText="✅ Referral Applied +200 Coins";
+  } else {
+    document.getElementById("refMsg").innerText="❌ Invalid or Already Used";
+  }
+}
+
 </script>
 
 </body>
-  </html>
+</html>
