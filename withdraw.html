@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Withdraw 💰</title>
+<style>
+body{background:#111;color:white;text-align:center;font-family:Arial;}
+.card{background:#1e1e1e;margin:20px;padding:20px;border-radius:15px;}
+input{padding:10px;margin:10px;width:80%;}
+button{padding:10px;border:none;background:#00ff99;border-radius:10px;}
+</style>
+</head>
+
+<body>
+
+<h1>Withdraw Request</h1>
+
+<div class="card">
+<input id="name" placeholder="Name"><br>
+<input id="upi" placeholder="UPI ID"><br>
+<input id="amt" type="number" placeholder="Amount ₹"><br>
+
+<button onclick="send()">Submit</button>
+
+<p id="msg"></p>
+</div>
+
+<script>
+function send(){
+let coins = parseInt(localStorage.getItem("coins"))||0;
+let rupees = coins/50;
+
+let amt = document.getElementById("amt").value;
+
+if(rupees<100){
+msg.innerText="❌ Minimum ₹100 required"; return;
+}
+
+if(amt>50){
+msg.innerText="❌ Daily limit ₹50"; return;
+}
+
+let data = {
+name:document.getElementById("name").value,
+upi:document.getElementById("upi").value,
+amount:amt
+};
+
+localStorage.setItem("request",JSON.stringify(data));
+msg.innerText="✅ Request Sent!";
+}
+</script>
+
+</body>
+</html>
